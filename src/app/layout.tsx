@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { site } from '@/config/site';
 import './globals.css';
 
@@ -52,7 +53,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             [style*="translate"]{transform:none!important}`}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
