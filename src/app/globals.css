@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-base: #060D18;
+  --color-surface: #0E1A2B;
+  --color-surface-2: #16243A;
+  --color-line: #1E3048;
+  --color-ink: #F2F5F8;
+  --color-muted: #93A3B8;
+  --color-accent: #FF5A1F;
+  --color-accent-dark: #E04A12;
+  --color-blue: #3B82F6;
+  --color-blue-light: #7FB0FF;
+  --color-paper: #F4F1EC;
+  --color-paper-ink: #0B1522;
+  --color-paper-muted: #4A5A6E;
+  --color-flag: #FFB020;
+
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection { background: var(--color-accent); color: var(--color-base); }
+}
+
+@layer components {
+  /* Measure for long-form body copy: 65-75 characters. */
+  .measure { max-width: 68ch; }
+
+  /* Stock photography graded towards the navy base so mixed sources cohere. */
+  .graded {
+    filter: saturate(0.82) contrast(1.06) brightness(0.92);
+  }
+  .graded-tint::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6,13,24,0.15) 0%, rgba(6,13,24,0.55) 60%, rgba(6,13,24,0.92) 100%);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+}
+
+/* Motion is opt-in: every animated element starts from its final state and is
+   only moved by JS when motion is allowed. Nothing is ever stuck invisible. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
