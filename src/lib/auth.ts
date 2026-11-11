@@ -54,6 +54,8 @@ export async function requireStaff(): Promise<Staff> {
 /** Admin-only operations, such as deleting an enquiry. */
 export async function requireAdmin(): Promise<Staff> {
   const staff = await requireStaff();
-  if (staff.role !== 'admin') redirect('/admin?error=admin-only');
+  // Not /admin: that route redirects straight on to /admin/posts, which would
+  // swallow the message and leave the editor with no idea why nothing happened.
+  if (staff.role !== 'admin') redirect('/admin/enquiries?error=admin-only');
   return staff;
 }

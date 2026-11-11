@@ -49,7 +49,7 @@ export default async function SettingsPage() {
         <h2 className="font-display text-lg">Still to fill in</h2>
         <p className="mt-1.5 text-sm text-muted">
           These appear on the live site as amber placeholder chips. Edit{' '}
-          <code className="rounded bg-base px-1.5 py-0.5 text-xs">src/config/site.ts</code> and deploy.
+          <code className="rounded bg-canvas px-1.5 py-0.5 text-xs">src/config/site.ts</code> and deploy.
         </p>
         {outstanding.length === 0 ? (
           <p className="mt-4 text-sm text-blue-light">Nothing outstanding. Every fact is filled in.</p>
@@ -89,7 +89,7 @@ export default async function SettingsPage() {
           The retention periods in the privacy policy ({site.legal.retention.enquiryMonths} months
           for enquiries, {site.legal.retention.bookingYears} years for booking records) and the{' '}
           {site.legal.booking.quoteValidDays} day quote validity are set to standard positions.
-          Change them in <code className="rounded bg-base px-1.5 py-0.5">src/config/site.ts</code>{' '}
+          Change them in <code className="rounded bg-canvas px-1.5 py-0.5">src/config/site.ts</code>{' '}
           if yours differ.
         </p>
       </section>
@@ -97,9 +97,9 @@ export default async function SettingsPage() {
       <section className="mt-6 rounded-xl border border-line bg-surface p-6">
         <h2 className="font-display text-lg">Photography</h2>
         <p className="mt-1.5 text-sm text-muted">
-          See <code className="rounded bg-base px-1.5 py-0.5 text-xs">PHOTOS.md</code> for the full
+          See <code className="rounded bg-canvas px-1.5 py-0.5 text-xs">PHOTOS.md</code> for the full
           sourcing brief. Replace a file in{' '}
-          <code className="rounded bg-base px-1.5 py-0.5 text-xs">public/photos</code> and nothing
+          <code className="rounded bg-canvas px-1.5 py-0.5 text-xs">public/photos</code> and nothing
           else needs changing.
         </p>
         <dl className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -141,9 +141,9 @@ export default async function SettingsPage() {
         <p className="mt-1.5 text-sm leading-relaxed text-muted">
           There is no sign-up route anywhere on the site. Create a user in the Supabase dashboard
           under Authentication, then add a matching row to the{' '}
-          <code className="rounded bg-base px-1.5 py-0.5 text-xs">profiles</code> table with the role{' '}
-          <code className="rounded bg-base px-1.5 py-0.5 text-xs">admin</code> or{' '}
-          <code className="rounded bg-base px-1.5 py-0.5 text-xs">editor</code>. A user without a
+          <code className="rounded bg-canvas px-1.5 py-0.5 text-xs">profiles</code> table with the role{' '}
+          <code className="rounded bg-canvas px-1.5 py-0.5 text-xs">admin</code> or{' '}
+          <code className="rounded bg-canvas px-1.5 py-0.5 text-xs">editor</code>. A user without a
           profile row cannot reach the admin area. The README has the exact SQL.
         </p>
       </section>

@@ -18,10 +18,10 @@ const statusStyle: Record<string, string> = {
 export default async function EnquiriesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: string; status?: string; deleted?: string }>;
+  searchParams: Promise<{ type?: string; status?: string; deleted?: string; error?: string }>;
 }) {
   await requireStaff();
-  const { type, status, deleted } = await searchParams;
+  const { type, status, deleted, error: notice } = await searchParams;
 
   const supabase = await createClient();
   let query = supabase
@@ -41,7 +41,7 @@ export default async function EnquiriesPage({
       href={href}
       aria-current={active ? 'true' : undefined}
       className={`rounded-full border px-3.5 py-1.5 text-xs transition-colors ${
-        active ? 'border-accent bg-accent text-base' : 'border-line text-muted hover:border-blue hover:text-ink'
+        active ? 'border-accent bg-accent text-canvas' : 'border-line text-muted hover:border-blue hover:text-ink'
       }`}
     >
       {label}
@@ -67,6 +67,12 @@ export default async function EnquiriesPage({
       {deleted && (
         <p role="status" className="mb-5 rounded-lg border border-blue/50 bg-blue/10 px-4 py-2.5 text-sm">
           Enquiry deleted.
+        </p>
+      )}
+
+      {notice === 'admin-only' && (
+        <p role="alert" className="mb-5 rounded-lg border border-accent/60 bg-accent/10 px-4 py-2.5 text-sm">
+          Only an administrator can delete an enquiry. Nothing was changed.
         </p>
       )}
 

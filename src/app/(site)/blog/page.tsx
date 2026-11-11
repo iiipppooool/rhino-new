@@ -46,7 +46,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Search 
                 href="/blog"
                 aria-current={!tag ? 'true' : undefined}
                 className={`inline-block rounded-full border px-4 py-1.5 text-sm transition-colors ${
-                  !tag ? 'border-accent bg-accent text-base' : 'border-line text-muted hover:border-blue hover:text-ink'
+                  !tag ? 'border-accent bg-accent text-canvas' : 'border-line text-muted hover:border-blue hover:text-ink'
                 }`}
               >
                 All
@@ -58,7 +58,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Search 
                   href={`/blog?tag=${encodeURIComponent(t)}`}
                   aria-current={tag === t ? 'true' : undefined}
                   className={`inline-block rounded-full border px-4 py-1.5 text-sm transition-colors ${
-                    tag === t ? 'border-accent bg-accent text-base' : 'border-line text-muted hover:border-blue hover:text-ink'
+                    tag === t ? 'border-accent bg-accent text-canvas' : 'border-line text-muted hover:border-blue hover:text-ink'
                   }`}
                 >
                   {t}

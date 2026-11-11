@@ -54,7 +54,7 @@ export default async function EnquiryDetailPage({ params }: { params: Promise<{ 
           <h1 className="font-display text-3xl">{e.name}</h1>
           <p className="mt-1 text-sm text-muted">{TYPES[e.type as keyof typeof TYPES]}</p>
         </div>
-        <a href={mailto} className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-base hover:bg-accent-dark">
+        <a href={mailto} className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-canvas hover:bg-accent-dark">
           Reply by email
         </a>
       </header>
@@ -85,7 +85,7 @@ export default async function EnquiryDetailPage({ params }: { params: Promise<{ 
 
             <label htmlFor="status" className="mb-1.5 block text-sm font-medium">Status</label>
             <select id="status" name="status" defaultValue={e.status}
-              className="w-full rounded-lg border border-line bg-base px-3.5 py-2.5 text-sm capitalize focus:border-blue focus:outline-none">
+              className="w-full rounded-lg border border-line bg-canvas px-3.5 py-2.5 text-sm capitalize focus:border-blue focus:outline-none">
               {STATUSES.map((s) => <option key={s} value={s} className="capitalize">{s}</option>)}
             </select>
 
@@ -94,9 +94,9 @@ export default async function EnquiryDetailPage({ params }: { params: Promise<{ 
             </label>
             <p className="mb-1.5 text-xs text-muted">Only staff see this. Never shown to the enquirer.</p>
             <textarea id="internal_notes" name="internal_notes" rows={7} defaultValue={e.internal_notes ?? ''}
-              className="w-full resize-y rounded-lg border border-line bg-base px-3.5 py-2.5 text-sm focus:border-blue focus:outline-none" />
+              className="w-full resize-y rounded-lg border border-line bg-canvas px-3.5 py-2.5 text-sm focus:border-blue focus:outline-none" />
 
-            <button type="submit" className="mt-4 w-full rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-base hover:bg-accent-dark">
+            <button type="submit" className="mt-4 w-full rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-canvas hover:bg-accent-dark">
               Save
             </button>
           </form>

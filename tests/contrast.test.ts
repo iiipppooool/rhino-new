@@ -40,6 +40,7 @@ const P = {
   paperInk: '#0B1522',
   paperMuted: '#4A5A6E',
   flag: '#FFB020',
+  accentInk: '#B23A0C',
 };
 
 const AA = 4.5;
@@ -59,6 +60,12 @@ const pairs: [string, string, string][] = [
   ['muted on light section', P.paperMuted, P.paper],
   ['flag chip text on base', P.flag, P.base],
   ['navy on flag chip', P.base, P.flag],
+
+  // The light section. A live DOM scan found two failures here that checking
+  // the dark palette alone had missed, so every colour used on cream and every
+  // colour used on the accent fill is pinned explicitly.
+  ['deep accent text on light section', P.accentInk, P.paper],
+  ['navy text on the accent band', P.base, P.accent],
 ];
 
 for (const [label, fg, bg] of pairs) {
@@ -70,7 +77,15 @@ for (const [label, fg, bg] of pairs) {
 
 test('white on the accent is NOT used, because it fails AA', () => {
   // Documents why accent buttons carry navy text rather than white.
+  // A ghost Button on the accent band regressed to exactly this, at 2.85:1,
+  // because its own text-ink beat the override by stylesheet order.
   assert.ok(ratio(P.ink, P.accent) < AA);
+});
+
+test('the brand accent is NOT used for text on the light section', () => {
+  // #FF5A1F is 2.77:1 on cream. Accent text there must use accentInk.
+  assert.ok(ratio(P.accent, P.paper) < AA, 'brand accent must fail here, hence accentInk');
+  assert.ok(ratio(P.accentInk, P.paper) >= AA, 'accentInk must pass on cream');
 });
 
 test('translucent text variants used in the UI still pass AA', () => {

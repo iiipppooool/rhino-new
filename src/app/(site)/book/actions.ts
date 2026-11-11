@@ -28,7 +28,7 @@ export async function submitEnquiry(
 
   // 1. Honeypot. A real browser never fills a hidden field. Answer as though
   // it succeeded so a bot cannot tell it was caught.
-  if (typeof raw.website === 'string' && raw.website.trim() !== '') {
+  if (typeof raw.vr_site_ref === 'string' && raw.vr_site_ref.trim() !== '') {
     return { status: 'success' };
   }
 

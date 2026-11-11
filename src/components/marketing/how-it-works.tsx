@@ -38,7 +38,7 @@ export function HowItWorks() {
           {steps.map((s, i) => (
             <Reveal as="li" key={s.n} delay={i * 0.1}>
               <div className="border-t-2 border-paper-ink/15 pt-6">
-                <span className="font-display text-sm font-bold tracking-[0.2em] text-accent">{s.n}</span>
+                <span className="font-display text-sm font-bold tracking-[0.2em] text-accent-ink">{s.n}</span>
                 <h3 className="mt-3 font-display text-xl leading-snug sm:text-2xl">{s.title}</h3>
                 <p className="mt-3 text-[0.95rem] leading-relaxed text-paper-muted">{s.body}</p>
               </div>

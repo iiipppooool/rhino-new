@@ -224,7 +224,7 @@ function EditorToolbar({
 
   const btn = (active: boolean) =>
     `rounded px-2 py-1 text-xs transition-colors ${
-      active ? 'bg-accent text-base' : 'bg-surface-2 text-muted hover:text-ink'
+      active ? 'bg-accent text-canvas' : 'bg-surface-2 text-muted hover:text-ink'
     }`;
 
   return (

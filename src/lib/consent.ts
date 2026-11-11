@@ -129,7 +129,10 @@ export function clearCategoryCookies(category: keyof ConsentCategories) {
   const domains = [undefined, host, `.${host}`, `.${host.split('.').slice(-2).join('.')}`];
 
   for (const name of document.cookie.split('; ').map((c) => c.split('=')[0] ?? '')) {
-    if (!prefixes[category].some((p) => name === p || name.startsWith(`${p}_`) || name.startsWith(p))) {
+    // Exact name, or the vendor's own suffix form such as _ga_<CONTAINER> and
+    // _gat_gtag_<ID>. A bare startsWith would also sweep up unrelated cookies
+    // that merely begin with the same letters.
+    if (!prefixes[category].some((p) => name === p || name.startsWith(`${p}_`))) {
       continue;
     }
     for (const domain of domains) {

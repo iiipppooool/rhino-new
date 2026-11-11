@@ -31,7 +31,7 @@ export function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-[padding,background-color,border-color] duration-300 ${
         scrolled
-          ? 'border-line bg-base/85 py-2 backdrop-blur-xl'
+          ? 'border-line bg-canvas/85 py-2 backdrop-blur-xl'
           : 'border-transparent bg-transparent py-4'
       }`}
     >
@@ -78,7 +78,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav id="mobile-nav" aria-label="Primary mobile" className="border-t border-line bg-base lg:hidden">
+        <nav id="mobile-nav" aria-label="Primary mobile" className="border-t border-line bg-canvas lg:hidden">
           <ul className="mx-auto max-w-7xl px-5 py-3 sm:px-8">
             {nav.map((item) => (
               <li key={item.href}>

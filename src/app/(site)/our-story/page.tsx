@@ -82,7 +82,7 @@ export default function StoryPage() {
               <Reveal as="li" key={t.title} delay={i * 0.06} className="relative pb-12 last:pb-0">
                 <span
                   aria-hidden="true"
-                  className="absolute -left-[calc(1.75rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-base sm:-left-[calc(2.25rem+5px)]"
+                  className="absolute -left-[calc(1.75rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-canvas sm:-left-[calc(2.25rem+5px)]"
                 />
                 <span className="font-display text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-accent">
                   {t.stage}

@@ -82,8 +82,18 @@ test('rejects a group size of zero', () => {
 });
 
 test('rejects a filled honeypot', () => {
-  const r = enquirySchema.safeParse({ ...validGeneral, website: 'http://spam.example' });
+  const r = enquirySchema.safeParse({ ...validGeneral, vr_site_ref: 'http://spam.example' });
   assert.equal(r.success, false);
+});
+
+test('autofill-prone field names do not act as honeypots', () => {
+  // A honeypot named website/url/fax gets filled by browser autofill and
+  // password managers, which would silently discard a real enquiry while
+  // showing the sender success. Those names must be ignored, not trapped.
+  // Only names that are NOT real fields are probed here.
+  const autofillProne = { website: 'x', url: 'x', fax: 'x', address: 'x', company: 'x' };
+  const r = enquirySchema.safeParse({ ...validGeneral, ...autofillProne });
+  assert.equal(r.success, true, 'autofill-prone field names must not act as honeypots');
 });
 
 test('a general enquiry does not require booking fields', () => {

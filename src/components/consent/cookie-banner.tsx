@@ -106,7 +106,7 @@ function PreferencesPanel({
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[95] flex items-end justify-center bg-base/80 p-0 backdrop-blur-sm sm:items-center sm:p-5">
+    <div className="fixed inset-0 z-[95] flex items-end justify-center bg-canvas/80 p-0 backdrop-blur-sm sm:items-center sm:p-5">
       <div
         ref={panelRef}
         role="dialog"
@@ -125,7 +125,7 @@ function PreferencesPanel({
             const key = cat.id as keyof ConsentCategories;
             const on = locked ? true : choice[key];
             return (
-              <li key={cat.id} className="rounded-lg border border-line bg-base p-4">
+              <li key={cat.id} className="rounded-lg border border-line bg-canvas p-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <h3 className="font-display text-base text-ink">{cat.name}</h3>
@@ -169,7 +169,7 @@ function PreferencesPanel({
           <button
             type="button"
             onClick={() => onSave(choice)}
-            className="flex-1 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-base hover:bg-accent-dark"
+            className="flex-1 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-canvas hover:bg-accent-dark"
           >
             Save choices
           </button>

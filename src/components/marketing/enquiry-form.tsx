@@ -9,6 +9,12 @@ import { Button } from '@/components/ui/button';
 import { site, isTodo } from '@/config/site';
 import { Todo } from '@/components/ui/placeholder';
 
+declare global {
+  interface Window {
+    turnstile?: { reset: (widgetId?: string) => void };
+  }
+}
+
 type Intent = 'prebook' | 'service' | 'general';
 
 const INTENTS: { id: Intent; label: string; blurb: string }[] = [
@@ -56,7 +62,18 @@ export function EnquiryForm({ turnstileSiteKey }: { turnstileSiteKey: string }) 
   const inputCls = (n: string) => `${field} ${err[n] ? 'border-accent' : 'border-line'}`;
 
   useEffect(() => {
-    if (state.status === 'error') errorRef.current?.focus();
+    if (state.status === 'error') {
+      errorRef.current?.focus();
+      // A Turnstile token is single use. Without this reset the second attempt
+      // after a validation error sends the spent token and is rejected as
+      // "we could not verify that you are human", which is unfixable by the
+      // visitor and looks like the form is broken.
+      try {
+        window.turnstile?.reset();
+      } catch {
+        // Widget not present or not ready; nothing to reset.
+      }
+    }
     if (state.status === 'success') successRef.current?.focus();
   }, [state.status]);
 
@@ -68,7 +85,7 @@ export function EnquiryForm({ turnstileSiteKey }: { turnstileSiteKey: string }) 
         role="status"
         className="rounded-xl border border-line bg-surface p-8 sm:p-10"
       >
-        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent text-base" aria-hidden="true">
+        <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent text-canvas" aria-hidden="true">
           <svg viewBox="0 0 20 20" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 10.5l4 4 8-9" />
           </svg>
@@ -93,39 +110,65 @@ export function EnquiryForm({ turnstileSiteKey }: { turnstileSiteKey: string }) 
   return (
     <>
       {turnstileSiteKey && (
-        <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="lazyOnload" />
+        // afterInteractive, not lazyOnload: with lazyOnload a quick submit can
+        // beat the widget and be rejected for a missing token.
+        <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" />
       )}
 
       <form action={formAction} noValidate className="space-y-9">
         <input type="hidden" name="type" value={intent} />
 
-        {/* Honeypot. Hidden from sight and from assistive tech, never autofilled. */}
+        {/*
+          Honeypot. Deliberately NOT named website, url, phone or similar:
+          browser autofill and password managers fill those, which would make
+          a real enquiry look like spam and get it silently discarded while the
+          sender is shown success. A meaningless name is not autofilled, while
+          a bot that fills every input still trips it.
+        */}
         <div aria-hidden="true" className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
-          <label htmlFor={`website-${widgetId}`}>Leave this field empty</label>
-          <input id={`website-${widgetId}`} type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+          <label htmlFor={`ref-${widgetId}`}>Leave this field empty</label>
+          <input
+            id={`ref-${widgetId}`}
+            type="text"
+            name="vr_site_ref"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
         </div>
 
+        {/*
+          Native radios, not role="tab". An earlier version used a tablist,
+          which told screen readers these were tabs: users then expect arrow
+          key navigation and an associated tabpanel, and got neither. Radios
+          describe the actual semantics (one choice of three) and bring
+          keyboard behaviour with them for free.
+        */}
         <fieldset>
           <legend className="mb-3 text-sm font-medium text-ink">What is this about?</legend>
-          <div role="tablist" aria-label="Enquiry type" className="grid gap-2 sm:grid-cols-3">
+          <div className="grid gap-2 sm:grid-cols-3">
             {INTENTS.map((opt) => {
               const active = intent === opt.id;
               return (
-                <button
+                <label
                   key={opt.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => setIntent(opt.id)}
-                  className={`rounded-lg border px-4 py-3 text-left transition-colors ${
+                  className={`block cursor-pointer rounded-lg border px-4 py-3 transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent ${
                     active ? 'border-accent bg-accent/10' : 'border-line bg-surface hover:border-blue/60'
                   }`}
                 >
+                  <input
+                    type="radio"
+                    name="intent_choice"
+                    value={opt.id}
+                    checked={active}
+                    onChange={() => setIntent(opt.id)}
+                    className="sr-only"
+                  />
                   <span className={`block text-sm font-semibold ${active ? 'text-accent' : 'text-ink'}`}>
                     {opt.label}
                   </span>
                   <span className="mt-0.5 block text-xs leading-snug text-muted">{opt.blurb}</span>
-                </button>
+                </label>
               );
             })}
           </div>

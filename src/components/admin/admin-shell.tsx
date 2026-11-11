@@ -29,7 +29,7 @@ export function AdminShell({ staff, children }: { staff: Staff; children: React.
         </div>
       </aside>
 
-      <main className="min-w-0 flex-1 bg-base">{children}</main>
+      <main className="min-w-0 flex-1 bg-canvas">{children}</main>
     </div>
   );
 }

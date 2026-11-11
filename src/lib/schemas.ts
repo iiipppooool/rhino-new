@@ -34,8 +34,10 @@ const base = z.object({
   }),
   marketing_opt_in: z.boolean().default(false),
 
-  // Anti-spam. Both are stripped before the record is saved.
-  website: z.string().max(0, 'Rejected.').optional(),
+  // Anti-spam. Both are stripped before the record is saved. The honeypot is
+  // not named website/url/phone, because autofill fills those and a real
+  // enquiry would then be discarded as spam.
+  vr_site_ref: z.string().max(0, 'Rejected.').optional(),
   turnstileToken: z.string().optional(),
 });
 

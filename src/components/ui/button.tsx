@@ -8,7 +8,7 @@ const base =
 /* Navy on accent is 6.24:1. White on accent is 2.85:1 and fails AA, so it is
    never used. Verified with a contrast script, not by eye. */
 const variants: Record<Variant, string> = {
-  accent: 'bg-accent text-base hover:bg-accent-dark',
+  accent: 'bg-accent text-canvas hover:bg-accent-dark',
   outline: 'border border-line bg-surface/60 text-ink hover:border-blue hover:bg-surface',
   ghost: 'text-ink hover:text-accent',
 };
