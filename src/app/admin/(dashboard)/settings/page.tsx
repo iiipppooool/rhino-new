@@ -26,6 +26,17 @@ export default async function SettingsPage() {
   check('Age guidance', site.ageGuidance);
   check('Session duration', site.sessionDuration);
 
+  const legalOutstanding: { label: string; value: string }[] = [];
+  const checkLegal = (label: string, value: string) => {
+    if (isTodo(value)) legalOutstanding.push({ label, value });
+  };
+  checkLegal('Supabase hosting region (privacy policy, section 5)', site.legal.dataRegion);
+  checkLegal('Public liability insurance (terms, section 12)', site.legal.insurance);
+  checkLegal('Deposit percentage (terms, section 4)', site.legal.booking.depositPercent);
+  checkLegal('Balance due (terms, section 4)', site.legal.booking.balanceDueDays);
+  checkLegal('Full refund notice (terms, section 5)', site.legal.booking.fullRefundNoticeDays);
+  checkLegal('Partial refund notice (terms, section 5)', site.legal.booking.partRefundNoticeDays);
+
   const missingPhotos = Object.values(photos).filter((p) => !p.src);
   const temporaryPhotos = Object.values(photos).filter((p) => p.temporary);
 
@@ -52,6 +63,35 @@ export default async function SettingsPage() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="mt-6 rounded-xl border border-line bg-surface p-6">
+        <h2 className="font-display text-lg">Legal and commercial terms</h2>
+        <p className="mt-1.5 text-sm text-muted">
+          These bind you contractually, so they were left blank rather than guessed. They render as
+          amber blanks in the published terms and privacy policy.
+        </p>
+        {legalOutstanding.length === 0 ? (
+          <p className="mt-4 text-sm text-blue-light">
+            All commercial terms are set. Have the two documents reviewed before launch.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-2">
+            {legalOutstanding.map((o) => (
+              <li key={o.label} className="flex flex-wrap items-baseline gap-x-3 border-t border-line pt-2 text-sm">
+                <span className="font-medium text-ink">{o.label}</span>
+                <span className="text-flag">{todoHint(o.value)}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="mt-4 border-t border-line pt-3 text-xs leading-relaxed text-muted">
+          The retention periods in the privacy policy ({site.legal.retention.enquiryMonths} months
+          for enquiries, {site.legal.retention.bookingYears} years for booking records) and the{' '}
+          {site.legal.booking.quoteValidDays} day quote validity are set to standard positions.
+          Change them in <code className="rounded bg-base px-1.5 py-0.5">src/config/site.ts</code>{' '}
+          if yours differ.
+        </p>
       </section>
 
       <section className="mt-6 rounded-xl border border-line bg-surface p-6">

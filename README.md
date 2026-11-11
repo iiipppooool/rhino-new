@@ -23,6 +23,8 @@ so it is impossible to miss. They all live in one file: `src/config/site.ts`.
 - Age guidance
 - Typical session duration
 - Group size and space needed (in `src/app/(site)/events/page.tsx` and `schools/page.tsx`)
+- Deposit, balance due, refund notice periods, insurance cover and data region
+  (in the `legal` block of `src/config/site.ts`)
 
 ### 2. Things to check yourself
 
@@ -30,9 +32,19 @@ so it is impossible to miss. They all live in one file: `src/config/site.ts`.
   and incorporation date were checked against Companies House on 2026-11-11 and
   matched. Confirm them again before launch. Note the official record includes
   "5th Floor", which the original brief omitted.
-- **Privacy policy and terms.** Both pages are drafts, visibly marked as such.
-  The privacy policy describes what the site genuinely does, so it is accurate,
-  but it has not been reviewed by anyone qualified. Get it checked.
+- **Privacy policy and terms.** Both are complete documents, not placeholders.
+  The privacy policy is accurate: every data flow, processor, lawful basis and
+  retention period it describes matches what the code actually does. The terms
+  cover contract formation, payment, cancellation, consumer rights, VR-specific
+  safety, safeguarding and liability.
+
+  What is left blank, because these bind you contractually and must not be
+  guessed: deposit percentage, when the balance is due, the two refund notice
+  periods, your public liability cover, and your Supabase hosting region. They
+  render as amber blanks until set, and `/admin/settings` lists them.
+
+  Neither document has been reviewed by a solicitor. Have that done before you
+  launch, particularly sections 11 and 12 of the terms.
 - **Photography.** See `PHOTOS.md`. Five temporary stock images, five slots with
   no photo at all.
 - **Testimonials and numbers.** There are none. The blocks where they would go
@@ -181,6 +193,26 @@ One form, three intents, chosen with a segmented toggle. Defence in depth:
 
 If email sending fails the enquiry is still saved and the visitor still sees
 success, because the submission genuinely did succeed. The failure is logged.
+
+### Legal pages
+
+`/privacy` and `/terms` are rendered from structured section data in
+`src/app/(site)/privacy/page.tsx` and `terms/page.tsx`, with a shared layout in
+`src/components/marketing/legal-doc.tsx`. Commercial figures come from
+`site.legal` so there is one place to change them.
+
+The privacy policy is written to match the implementation exactly. If you change
+what the app does, change the policy. In particular: the retention claim that IP
+addresses are held "up to one hour" is enforced by
+`supabase/migrations/20260102000000_rate_limit_retention.sql`, which deletes
+expired rate-limit rows. Do not drop that migration without rewording section 6.
+
+### Colour contrast
+
+`tests/contrast.test.ts` checks every foreground and background pair in the
+palette against WCAG AA and fails the build if one drops below 4.5:1. It caught
+two real problems: white text on the orange accent (2.85:1) and faded
+`text-muted/60` and `/70` variants. Accent buttons therefore carry navy text.
 
 ### CSV export
 

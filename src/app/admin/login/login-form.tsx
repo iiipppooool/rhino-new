@@ -6,7 +6,7 @@ import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 
 const field =
-  'w-full rounded-lg border border-line bg-surface px-4 py-3 text-ink placeholder:text-muted/60 focus:border-blue focus:outline-none';
+  'w-full rounded-lg border border-line bg-surface px-4 py-3 text-ink placeholder:text-muted focus:border-blue focus:outline-none';
 
 export function LoginForm({ next, initialError }: { next?: string; initialError?: string }) {
   const [mode, setMode] = useState<'signin' | 'reset'>('signin');

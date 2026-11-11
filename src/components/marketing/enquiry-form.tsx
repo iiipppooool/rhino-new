@@ -18,7 +18,7 @@ const INTENTS: { id: Intent; label: string; blurb: string }[] = [
 ];
 
 const field =
-  'w-full rounded-lg border bg-surface px-4 py-3 text-ink placeholder:text-muted/60 transition-colors focus:border-blue focus:outline-none';
+  'w-full rounded-lg border bg-surface px-4 py-3 text-ink placeholder:text-muted transition-colors focus:border-blue focus:outline-none';
 
 function Field({
   label, name, error, children, hint, required,

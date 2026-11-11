@@ -47,6 +47,40 @@ export const site = {
   mission:
     'Help young people build confidence, fitness and discipline through safe, accessible VR.',
 
+  /**
+   * Legal and commercial settings used by the privacy policy and terms.
+   *
+   * Values given as plain data are factual or follow a standard position
+   * (HMRC requires business records to be kept six years, for example).
+   * Values wrapped in TODO are commercial decisions that must not be invented:
+   * they bind you contractually, so they render as amber chips until set.
+   */
+  legal: {
+    lastUpdated: '11 November 2026',
+
+    /** Where the Supabase project is hosted, e.g. 'London (eu-west-2)'. */
+    dataRegion: TODO('Supabase hosting region'),
+
+    /** Insurer and cover, e.g. 'public liability insurance of £5 million'. */
+    insurance: TODO('public liability cover, or remove the clause'),
+
+    retention: {
+      /** Enquiries that do not become bookings. */
+      enquiryMonths: 12,
+      /** Booking and payment records. Six years is the HMRC requirement. */
+      bookingYears: 6,
+    },
+
+    booking: {
+      /** How long a written quote stays open. */
+      quoteValidDays: 30,
+      depositPercent: TODO('deposit percentage'),
+      balanceDueDays: TODO('days before the event the balance is due'),
+      fullRefundNoticeDays: TODO('notice for a full refund of the deposit'),
+      partRefundNoticeDays: TODO('notice for a partial refund'),
+    },
+  },
+
   values: [
     { name: 'Safety', body: 'No contact. Supervised sessions. Kit cleaned between users.' },
     { name: 'Accessibility', body: 'We bring the kit to you, so cost and travel stop fewer people taking part.' },

@@ -11,7 +11,7 @@ import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 
 const field =
-  'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/60 focus:border-blue focus:outline-none';
+  'w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-ink placeholder:text-muted focus:border-blue focus:outline-none';
 
 export type EditablePost = {
   id: string;

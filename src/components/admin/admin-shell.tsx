@@ -20,7 +20,7 @@ export function AdminShell({ staff, children }: { staff: Staff; children: React.
 
         <div className="border-t border-line p-5 lg:mt-auto">
           <p className="truncate text-xs text-muted" title={staff.email}>{staff.email}</p>
-          <p className="mt-0.5 text-xs capitalize text-muted/70">{staff.role}</p>
+          <p className="mt-0.5 text-xs capitalize text-muted">{staff.role}</p>
           <form action={signOut}>
             <button type="submit" className="mt-3 text-sm text-ink underline underline-offset-4 hover:text-accent">
               Sign out
