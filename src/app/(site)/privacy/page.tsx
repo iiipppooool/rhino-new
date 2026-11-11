@@ -3,6 +3,7 @@ import { PageHero } from '@/components/marketing/page-hero';
 import { LegalDoc, LegalTable, ContactLine, SeeAlso, type LegalSection } from '@/components/marketing/legal-doc';
 import { Todo } from '@/components/ui/placeholder';
 import { site, isTodo } from '@/config/site';
+import { gaMeasurementId, metaPixelId } from '@/lib/env';
 
 export const metadata: Metadata = {
   title: 'Privacy policy',
@@ -310,67 +311,99 @@ export default function PrivacyPage() {
     },
     {
       id: 'cookies',
-      heading: 'Cookies and analytics',
+      heading: 'Cookies and tracking',
       body: (
         <>
           <p>
-            <strong>We measure traffic and page speed, but we do not set analytics cookies, and we
-            do not track you.</strong> That is why you have not been shown a cookie banner. Under
-            the Privacy and Electronic Communications Regulations, consent is required before
-            storing or accessing information on your device for non-essential purposes. Our
-            measurement tools do not store anything on your device, so there is nothing to consent
-            to.
+            <strong>We do not set any non-essential cookie until you have said
+            yes.</strong> The first time you visit, a banner asks you to choose. Nothing in the
+            analytics or marketing categories below runs before you accept it, and refusing is a
+            single click on a button of equal size to accepting.
+          </p>
+          <p>
+            You can change your mind at any time using the <strong>Cookie settings</strong> link in
+            the footer of every page. Withdrawing is as easy as giving consent, and when you
+            withdraw we delete the cookies that category had set and reload the page so the scripts
+            stop running immediately.
           </p>
 
-          <p><strong>What we use</strong></p>
+          <p><strong>Strictly necessary</strong></p>
+          <p>
+            These are needed for the site to work, so they do not require consent and cannot be
+            turned off.
+          </p>
           <LegalTable
-            caption="Analytics tools"
-            head={['Tool', 'What it measures', 'How it counts visitors']}
+            caption="Strictly necessary cookies"
+            head={['Cookie', 'Purpose', 'How long']}
             rows={[
               [
-                <><strong>Vercel Web Analytics</strong></>,
-                'Page views, the page that referred you, country, device and browser type.',
-                'A short-lived hash derived from the incoming request, which rotates regularly. No cookie, no identifier stored on your device, and no way to recognise you on a later visit or on another site.',
+                <><strong>vrhino_consent</strong></>,
+                'Remembers the cookie choice you made, so we do not ask again on every page.',
+                '6 months, then we ask again',
               ],
               [
-                <><strong>Vercel Speed Insights</strong></>,
-                'How quickly pages load and respond, so we can find slow pages and fix them.',
-                'Performance timings only. It does not identify visitors.',
+                <><strong>Supabase authentication</strong></>,
+                'Keeps a VRhino administrator signed in. Never set for ordinary visitors.',
+                'Until sign out',
               ],
             ]}
           />
 
-          <p><strong>What these tools do not do</strong></p>
-          <ul>
-            <li>They do not set cookies or store anything in your browser.</li>
-            <li>They do not follow you to other websites, and the data is not shared with ad networks.</li>
-            <li>They do not build a profile of you, and we cannot use them to identify an individual.</li>
-            <li>They do not run on our admin pages, only on the public site.</li>
-          </ul>
+          <p><strong>Always on, and cookieless</strong></p>
           <p>
-            Measuring this is in our legitimate interests under Article 6(1)(f): we need to know
-            which pages people find useful and which ones are too slow, and the measurement is
-            designed so that it cannot identify you. You can block it with a content blocker and the
-            site will work exactly the same.
+            We measure page views and page speed using Vercel Web Analytics and Vercel Speed
+            Insights. These set no cookies and store nothing on your device. Visitors are counted
+            using a short-lived hash derived from the request, which rotates, so they cannot
+            recognise you on a later visit or follow you to another site. Because nothing is stored
+            on your device, no consent is required for them. They do not run on our admin pages.
           </p>
 
-          <p><strong>Cookies</strong></p>
-          <p>The only cookies this site sets are:</p>
-          <LegalTable
-            caption="Cookies"
-            head={['Cookie', 'Purpose', 'Who gets it']}
-            rows={[
-              [
-                <><strong>Supabase authentication cookies</strong></>,
-                'Keeps a VRhino administrator signed in to the admin area. Strictly necessary, so no consent is required.',
-                'VRhino staff only. Never set for ordinary visitors.',
-              ],
-            ]}
-          />
+          <p><strong>Only with your consent</strong></p>
+          {gaMeasurementId || metaPixelId ? (
+            <>
+              <LegalTable
+                caption="Cookies set only after consent"
+                head={['Category', 'What it does', 'Who sets it']}
+                rows={[
+                  ...(gaMeasurementId
+                    ? [[
+                        <><strong>Analytics</strong></>,
+                        'Shows us how people move through the site, which pages lead to enquiries, and where visitors came from. Cookies such as _ga and _gid.',
+                        'Google Analytics, provided by Google. IP addresses are shortened before storage, and advertising signals stay off unless you also accept marketing.',
+                      ]]
+                    : []),
+                  ...(metaPixelId
+                    ? [[
+                        <><strong>Marketing</strong></>,
+                        'Measures which adverts brought people to us, and allows us to show VRhino adverts to people who have visited before. Cookies such as _fbp. These can follow you to other websites.',
+                        'Meta Pixel, provided by Meta.',
+                      ]]
+                    : []),
+                ]}
+              />
+              <p>
+                Our lawful basis for these is <strong>consent</strong>, Article 6(1)(a) of UK GDPR,
+                and regulation 6 of the Privacy and Electronic Communications Regulations. Both
+                Google and Meta process data in the United States; see section 5 for how those
+                transfers are covered. Accepting them means data about your visit is shared with
+                those companies, who are separate controllers for their own purposes. Their own
+                policies apply to what they then do with it.
+              </p>
+            </>
+          ) : (
+            <p>
+              The consent banner offers analytics and marketing categories, and{' '}
+              <strong>no tools in either category are currently switched on</strong>. If you accept
+              them today, nothing additional is loaded. We will list each tool here before turning
+              any of them on.
+            </p>
+          )}
+
+          <p><strong>If you say no</strong></p>
           <p>
-            If we ever add something that does set non-essential cookies or similar identifiers, for
-            example an advertising pixel or a third-party analytics product, we will update this
-            page and add a consent banner before switching it on.
+            The site works exactly the same. We do not use cookie walls, we do not nag you on every
+            page, and refusing does not limit anything you can do here. If you use a content
+            blocker, that works too and we do not try to defeat it.
           </p>
         </>
       ),

@@ -35,3 +35,10 @@ export const resendApiKey = process.env.RESEND_API_KEY ?? '';
 export const fromEmail = process.env.FROM_EMAIL ?? 'VRhino <noreply@vrhino.org>';
 export const turnstileSecret = process.env.TURNSTILE_SECRET_KEY ?? '';
 export const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? '';
+
+/**
+ * Tracking IDs. Both optional: with neither set, nothing is injected and the
+ * consent banner still works. Nothing loads before consent either way.
+ */
+export const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? '';
+export const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '';

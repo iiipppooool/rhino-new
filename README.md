@@ -201,10 +201,32 @@ Vercel Web Analytics and Speed Insights are mounted in `src/app/(site)/layout.ts
 enquiries is not traffic worth measuring, and it keeps admin activity out of a
 third party.
 
-Both are cookieless, so no consent banner is required under PECR. That is a
-statement the privacy policy makes, so if you ever swap in a product that does
-set cookies or identifiers, section 8 has to change and a banner has to go up at
-the same time.
+Both are cookieless, so they run for everyone and need no consent.
+
+### Cookie consent
+
+Tracking cookies are supported, behind a consent manager in
+`src/components/consent/`. UK rules shaped the design:
+
+- **Nothing loads before opt-in.** PECR regulation 6 requires consent before a
+  non-essential cookie is set, so no Google or Meta request is made at all until
+  the visitor accepts. Verified in a browser: zero tracker requests and zero
+  cookies on a fresh visit and after "Reject all".
+- **Reject is as easy as accept.** The ICO has said refusing must be as easy as
+  accepting. "Reject all" and "Accept all" are the same component, same size,
+  same weight, same colour, side by side. Do not restyle one to stand out.
+- **Withdrawal is permanent and real.** The footer carries a "Cookie settings"
+  control on every page. Withdrawing deletes that category's cookies and reloads,
+  because a script that has already run cannot be unloaded by React.
+- **Consent is evidenced.** The cookie records the categories, a timestamp and a
+  version. Bumping `CONSENT_VERSION` in `src/lib/consent.ts` invalidates stored
+  consent and asks everyone again, which is what you do if you add a new tool.
+
+Turn trackers on by setting `NEXT_PUBLIC_GA_MEASUREMENT_ID` or
+`NEXT_PUBLIC_META_PIXEL_ID`. With neither set, the banner still works and the
+privacy policy automatically says that no tools are switched on. **The policy
+reads these same variables**, so section 8 describes exactly what is configured
+rather than what someone remembered to write down.
 
 The two scripts are served by the Vercel platform at `/_vercel/insights/...`
 and do not exist when running locally. A local Lighthouse run therefore reports

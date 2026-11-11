@@ -3,6 +3,7 @@ import { site, isTodo } from '@/config/site';
 import { Logo } from '@/components/ui/logo';
 import { Todo } from '@/components/ui/placeholder';
 import { photos } from '@/lib/photos';
+import { CookieSettingsLink } from '@/components/consent/cookie-banner';
 
 const columns = [
   {
@@ -88,7 +89,12 @@ export function SiteFooter() {
             Photography: placeholder stock images, marked for replacement with VRhino event photography.
             {temporaryPhotos.length > 0 && ' Credits to be added when final images are selected.'}
           </p>
-          <p className="mt-3">© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
+          <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</span>
+            <span aria-hidden="true">·</span>
+            {/* Withdrawing consent must be as easy as giving it. */}
+            <CookieSettingsLink className="underline underline-offset-4 hover:text-ink" />
+          </p>
         </div>
       </div>
     </footer>
