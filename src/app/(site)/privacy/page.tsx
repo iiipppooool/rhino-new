@@ -92,9 +92,27 @@ export default function PrivacyPage() {
             </li>
           </ul>
 
+          <p><strong>Automatically, to measure traffic and speed</strong></p>
+          <ul>
+            <li>
+              <strong>Page views</strong>: which page was viewed, the page that referred you, your
+              country, and your device and browser type.
+            </li>
+            <li>
+              <strong>Page performance</strong>: how quickly pages loaded and responded, so we can
+              find and fix slow pages.
+            </li>
+          </ul>
+          <p>
+            This is measured by Vercel Web Analytics and Vercel Speed Insights, and it is covered in
+            full in section 8. Neither sets a cookie, neither identifies you, and neither runs on
+            our admin pages.
+          </p>
+
           <p><strong>What we do not collect</strong></p>
           <ul>
-            <li>No analytics, advertising or tracking of any kind.</li>
+            <li>No advertising, no ad networks and no tracking of you across other websites.</li>
+            <li>No analytics that identifies you. See section 8 for what our traffic measurement does and does not do.</li>
             <li>No special category data. Please do not send us health or medical information
               through the form. If a participant has a condition we need to know about, we will
               agree with you how to handle that once a booking is confirmed.</li>
@@ -191,7 +209,7 @@ export default function PrivacyPage() {
               ],
               [
                 <><strong>Vercel</strong></>,
-                'Website hosting. Server logs include IP addresses.',
+                'Website hosting, plus Web Analytics and Speed Insights. Server logs include IP addresses.',
                 'Processing in the United States and other regions',
               ],
               [
@@ -292,15 +310,51 @@ export default function PrivacyPage() {
     },
     {
       id: 'cookies',
-      heading: 'Cookies',
+      heading: 'Cookies and analytics',
       body: (
         <>
           <p>
-            <strong>This site sets no analytics, advertising or tracking cookies, which is why you
-            have not been shown a cookie banner.</strong> Under the Privacy and Electronic
-            Communications Regulations, consent is needed for non-essential cookies. We do not use
-            any, so there is nothing to consent to.
+            <strong>We measure traffic and page speed, but we do not set analytics cookies, and we
+            do not track you.</strong> That is why you have not been shown a cookie banner. Under
+            the Privacy and Electronic Communications Regulations, consent is required before
+            storing or accessing information on your device for non-essential purposes. Our
+            measurement tools do not store anything on your device, so there is nothing to consent
+            to.
           </p>
+
+          <p><strong>What we use</strong></p>
+          <LegalTable
+            caption="Analytics tools"
+            head={['Tool', 'What it measures', 'How it counts visitors']}
+            rows={[
+              [
+                <><strong>Vercel Web Analytics</strong></>,
+                'Page views, the page that referred you, country, device and browser type.',
+                'A short-lived hash derived from the incoming request, which rotates regularly. No cookie, no identifier stored on your device, and no way to recognise you on a later visit or on another site.',
+              ],
+              [
+                <><strong>Vercel Speed Insights</strong></>,
+                'How quickly pages load and respond, so we can find slow pages and fix them.',
+                'Performance timings only. It does not identify visitors.',
+              ],
+            ]}
+          />
+
+          <p><strong>What these tools do not do</strong></p>
+          <ul>
+            <li>They do not set cookies or store anything in your browser.</li>
+            <li>They do not follow you to other websites, and the data is not shared with ad networks.</li>
+            <li>They do not build a profile of you, and we cannot use them to identify an individual.</li>
+            <li>They do not run on our admin pages, only on the public site.</li>
+          </ul>
+          <p>
+            Measuring this is in our legitimate interests under Article 6(1)(f): we need to know
+            which pages people find useful and which ones are too slow, and the measurement is
+            designed so that it cannot identify you. You can block it with a content blocker and the
+            site will work exactly the same.
+          </p>
+
+          <p><strong>Cookies</strong></p>
           <p>The only cookies this site sets are:</p>
           <LegalTable
             caption="Cookies"
@@ -308,17 +362,15 @@ export default function PrivacyPage() {
             rows={[
               [
                 <><strong>Supabase authentication cookies</strong></>,
-                'Keeps a VRhino administrator signed in to the admin area. Strictly necessary.',
+                'Keeps a VRhino administrator signed in to the admin area. Strictly necessary, so no consent is required.',
                 'VRhino staff only. Never set for ordinary visitors.',
               ],
             ]}
           />
           <p>
-            If we ever add analytics, we will update this page first. If what we add sets
-            non-essential cookies or similar identifiers, we will add a consent banner at the same
-            time. If we use a cookieless product such as Vercel Analytics, which does not store
-            identifiers on your device or track you across sites, no banner is required and we will
-            say so here.
+            If we ever add something that does set non-essential cookies or similar identifiers, for
+            example an advertising pixel or a third-party analytics product, we will update this
+            page and add a consent banner before switching it on.
           </p>
         </>
       ),

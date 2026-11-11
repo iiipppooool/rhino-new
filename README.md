@@ -194,6 +194,23 @@ One form, three intents, chosen with a segmented toggle. Defence in depth:
 If email sending fails the enquiry is still saved and the visitor still sees
 success, because the submission genuinely did succeed. The failure is logged.
 
+### Analytics
+
+Vercel Web Analytics and Speed Insights are mounted in `src/app/(site)/layout.tsx`,
+**not** the root layout, so they do not run on `/admin`. Staff browsing their own
+enquiries is not traffic worth measuring, and it keeps admin activity out of a
+third party.
+
+Both are cookieless, so no consent banner is required under PECR. That is a
+statement the privacy policy makes, so if you ever swap in a product that does
+set cookies or identifiers, section 8 has to change and a banner has to go up at
+the same time.
+
+The two scripts are served by the Vercel platform at `/_vercel/insights/...`
+and do not exist when running locally. A local Lighthouse run therefore reports
+a console 404 and scores best practices 96 rather than 100. On a deployment it
+loads normally.
+
 ### Legal pages
 
 `/privacy` and `/terms` are rendered from structured section data in
