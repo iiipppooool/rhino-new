@@ -45,6 +45,9 @@ so it is impossible to miss. They all live in one file: `src/config/site.ts`.
 
   Neither document has been reviewed by a solicitor. Have that done before you
   launch, particularly sections 11 and 12 of the terms.
+- **A 16px favicon.** The supplied logo is a detailed mascot and does not
+  survive 256 pixels; see `BRAND.md`. Ask whoever drew it for a simplified
+  small-size glyph. Everything 32px and up is fine.
 - **Photography.** See `PHOTOS.md`. Five temporary stock images, five slots with
   no photo at all.
 - **Testimonials and numbers.** There are none. The blocks where they would go

@@ -27,6 +27,15 @@ export const metadata: Metadata = {
     title: 'VRhino | VR boxing, games and events, brought to your venue',
     description:
       'We bring the headsets and a facilitator to your venue. Parties, school workshops, youth programmes and VR boxing for gyms.',
+    images: [{ url: '/brand/og.jpg', width: 1200, height: 630, alt: 'VRhino' }],
+  },
+  icons: {
+    icon: [
+      { url: '/brand/icon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/brand/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/brand/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
